@@ -8,6 +8,28 @@
 <body>
   <h1 th:text="${titulo}">Título</h1>
 
+  <div class="barra">
+    <div class="grupo-botones">
+      <a th:href="@{/contacto}" class="boton">Contacto</a>
+      <button type="button" class="boton secundario" id="abrir-acerca">Acerca de</button>
+    </div>
+  </div>
+
+  <dialog class="ventana-acerca" id="ventana-acerca" aria-labelledby="titulo-acerca">
+    <h2 id="titulo-acerca">Acerca de</h2>
+    <dl>
+      <dt>Nombre</dt>
+      <dd>Jesus David Alcala Hernandez</dd>
+      <dt>Fecha</dt>
+      <dd><time id="fecha-hoy"></time></dd>
+      <dt>Número de ficha</dt>
+      <dd>3230489</dd>
+    </dl>
+    <button type="button" class="boton" id="cerrar-acerca">Cerrar</button>
+  </dialog>
+
+  <p class="mensaje-exito" th:if="${mensajeContacto}" th:text="${mensajeContacto}"></p>
+
   <!-- Enlaces de filtro: @{/menu(tipo='bebida')} construye /menu?tipo=bebida -->
   <p>
     <a th:href="@{/menu}">Todos</a> ·
@@ -23,5 +45,19 @@
     </li>
   </ul>
   <p th:if="${#lists.isEmpty(platos)}">No hay platos de ese tipo.</p>
+  <script>
+    const ventanaAcerca = document.getElementById("ventana-acerca");
+
+    document.getElementById("abrir-acerca").addEventListener("click", () => {
+      ventanaAcerca.showModal();
+    });
+
+    document.getElementById("cerrar-acerca").addEventListener("click", () => {
+      ventanaAcerca.close();
+    });
+
+    document.getElementById("fecha-hoy").textContent =
+      new Intl.DateTimeFormat("es-CO", { dateStyle: "long" }).format(new Date());
+  </script>
 </body>
 </html>

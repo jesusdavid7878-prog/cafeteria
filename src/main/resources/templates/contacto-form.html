@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacto</title>
+  <link rel="stylesheet" href="/css/cafeteria.css">
+</head>
+<body>
+  <h1>Contacto</h1>
+
+  <p class="mensaje-error" th:if="${errorContacto}" th:text="${errorContacto}"></p>
+
+  <form class="formulario" th:action="@{/contacto}" th:object="${contacto}" method="post">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" type="text" th:field="*{nombre}" maxlength="100" required>
+
+    <label for="correo">Correo</label>
+    <input id="correo" type="email" th:field="*{correo}" maxlength="254" required>
+
+    <label for="asunto">Asunto</label>
+    <input id="asunto" type="text" th:field="*{asunto}" maxlength="200" required>
+
+    <div class="acciones">
+      <button type="submit" class="boton">Enviar</button>
+      <a th:href="@{/menu}" class="boton secundario">Cancelar</a>
+    </div>
+  </form>
+</body>
+</html>
